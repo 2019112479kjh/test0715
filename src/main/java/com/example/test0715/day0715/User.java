@@ -1,4 +1,4 @@
-package day0715;
+package com.example.test0715.day0715;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -13,4 +13,6 @@ public class User {
     private String userName;
     private String email;
     private boolean admin;
+    private boolean person;
+    private String name;
 }
