@@ -51,4 +51,25 @@ public class PostController {
         posts.removeIf(p -> p.getId() == id);
         return "redirect:/posts";
     }
+
+    @GetMapping("/{id}/edit")
+    public String editForm(@PathVariable("id") Long id, Model model) {
+        Post post = posts.stream()
+                .filter(p -> p.getId().equals(id))
+                .findFirst()
+                .orElseThrow(() -> new IllegalArgumentException("해당 게시글이 존재하지 않습니다. id: " + id));
+        model.addAttribute("post", post);
+        return "post/edit";
+    }
+
+    @PostMapping("/{id}/edit")
+    public String edit(@PathVariable("id") Long id, @ModelAttribute Post updatedPost) {
+        Post post = posts.stream()
+                .filter(p -> p.getId().equals(id))
+                .findFirst()
+                .orElseThrow(() -> new IllegalArgumentException("해당 게시글이 존재하지 않습니다. id: " + id));
+        post.setTitle(updatedPost.getTitle());
+        post.setContent(updatedPost.getContent());
+        return "redirect:/posts/{id}";
+    }
 }
